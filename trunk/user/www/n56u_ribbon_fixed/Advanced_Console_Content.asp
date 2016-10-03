@@ -16,53 +16,15 @@
 <script type="text/javascript" src="/popup.js"></script>
 <script>
 var $j = jQuery.noConflict();
-
 <% login_state_hook(); %>
 
-function initial(){
+function initial() {
 	show_banner(1);
 	show_menu(5,7,6);
 	show_footer();
 
-	if (!login_safe()){
-		$j('#btn_exec').attr('disabled', 'disabled');
-		$j('#SystemCmd').attr('disabled', 'disabled');
-	}else
-		document.form.SystemCmd.focus();
-}
-
-function getResponse(){
-	$j.get('/console_response.asp', function(data){
-		var response = ($j.browser.msie && !is_ie11p) ? data.nl2br() : data;
-		$j("#console_area").text(response);
-		$j('#btn_exec').removeAttr('disabled');
-	});
-}
-
-function startPost(){
-	if (!login_safe())
-		return false;
-	$j('#btn_exec').attr('disabled', 'disabled');
-	$j.post('/apply.cgi',
-	{
-		'action_mode': ' SystemCmd ',
-		'current_page': 'console_response.asp',
-		'next_page': 'console_response.asp',
-		'SystemCmd': $j('#SystemCmd').val()
-	},
-	function(response){
-		getResponse();
-	});
-}
-
-function clearOut(){
-	$j('#console_area').html('');
-	$j('#SystemCmd').val('');
-}
-
-function checkEnter(e){
-	e = e || event;
-	return (e.keyCode || event.which || event.charCode || 0) === 13;
+	var termUrl = window.location.protocol + "//" + window.location.hostname + ":7681";
+	$j("#term-iframe").attr("src", termUrl);
 }
 </script>
 </head>
@@ -114,20 +76,7 @@ function checkEnter(e){
                             <div class="round_bottom">
                                 <div class="row-fluid">
                                     <div id="tabMenu" class="submenuBlock"></div>
-                                    <div class="alert alert-danger" style="margin: 10px;"><#Console_warn#></div>
-
-                                    <table width="100%" cellpadding="4" cellspacing="0" class="table">
-                                        <tr>
-                                            <td width="80%" style="border-top: 0 none"><input type="text" id="SystemCmd" class="span12" name="SystemCmd" maxlength="127" onkeypress="if (checkEnter(event)) startPost();" value=""></td>
-                                            <td style="border-top: 0 none"><input class="btn btn-primary span12" id="btn_exec" onClick="startPost()" type="button" value="<#CTL_refresh#>" name="action"></td>
-                                            <td style="border-top: 0 none"><button class="btn span12" onClick="clearOut();" type="button" value="<#CTL_refresh#>" name="action" style="outline: 0"><i class="icon icon-remove"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" style="border-top: 0 none">
-                                                <textarea class="span12" id="console_area" style="font-family: 'Courier New', Courier, mono; font-size:13px;" rows="23" wrap="off" readonly="1"><% nvram_dump("syscmd.log","syscmd.sh"); %></textarea>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <iframe id="term-iframe" style="width: 100%; height: 500px; border: none"></iframe>
                                 </div>
                             </div>
                         </div>
