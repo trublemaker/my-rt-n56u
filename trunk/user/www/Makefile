@@ -89,7 +89,7 @@ ifeq ($(CONFIG_FIRMWARE_INCLUDE_LANG_PL),y)
 	sed $(DWURL_PATTERN) -i $(ROMFS_DIR)/www/PL.dict
 endif
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_LANG_RU),y)
-	echo "LANG_RU=Pусский" >> $(ROMFS_DIR)/www/EN.header
+	echo "LANG_RU=English" >> $(ROMFS_DIR)/www/EN.header
 	cp dict/RU.dict $(ROMFS_DIR)/www
 	sed $(BOARD_PATTERN) -i $(ROMFS_DIR)/www/RU.dict
 	sed $(COPYR_PATTERN) -i $(ROMFS_DIR)/www/RU.dict
