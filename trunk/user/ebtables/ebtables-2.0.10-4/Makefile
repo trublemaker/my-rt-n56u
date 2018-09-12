@@ -17,8 +17,8 @@ INITDIR:=/etc/rc.d/init.d
 SYSCONFIGDIR:=/etc/sysconfig
 DESTDIR:=
 
-CFLAGS:=-Os -Wall -Wunused -Werror
-CFLAGS_SH_LIB:=-fPIC -Os
+CFLAGS:= -Wall -Wunused -Werror
+CFLAGS_SH_LIB:=-fPIC
 
 ifeq ($(shell uname -m),sparc64)
 CFLAGS+=-DEBT_MIN_ALIGN=8 -DKERNEL_64_USERSPACE_32

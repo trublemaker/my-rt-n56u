@@ -5482,8 +5482,11 @@ INT RTMPAPQueryInformation(
 #endif /* DOT1X_SUPPORT */			
 
 		case RT_OID_802_11_MAC_ADDRESS:
+			{
+						UCHAR apidx = pObj->ioctl_if;
                         wrq->u.data.length = MAC_ADDR_LEN;
                         Status = copy_to_user(wrq->u.data.pointer, &pAd->ApCfg.MBSSID[apidx].wdev.bssid, wrq->u.data.length);
+			}
 			break;
 
 #ifdef SNMP_SUPPORT

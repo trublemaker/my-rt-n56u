@@ -3,11 +3,16 @@
 # If running interactively, then
 if [ "$PS1" ] ; then
 
-    export PATH=/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    export PATH=/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tmp:/etc/storage
     export HOSTNAME=`/bin/hostname`
     export TERMINFO=/usr/share/terminfo
     export TERM=xterm
 
 fi;
+
+alias l='ls -l'
+alias ll='ls -la'
+alias tailf='tail -f'
+alias log='tail -f /tmp/syslog.log'
 
 [ -r /opt/etc/profile ] && . /opt/etc/profile

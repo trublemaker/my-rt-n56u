@@ -78,6 +78,7 @@ func_save()
 	local fsz
 
 	echo "Save storage files to MTD partition \"$mtd_part_dev\""
+	echo "rm -f $tbz"
 	rm -f $tbz
 	md5sum -c -s $hsh 2>/dev/null
 	if [ $? -eq 0 ] ; then

@@ -80,6 +80,8 @@ dir_  =
 
 dir_y						+= busybox
 dir_y						+= iptables
+dir_y						+= mcast
+dir_y						+= gdb
 dir_$(CONFIG_FIRMWARE_INCLUDE_IPSET)		+= ipset
 dir_y						+= ebtables
 dir_y						+= iproute2
@@ -133,7 +135,6 @@ endif
 
 ifeq ($(STORAGE_ENABLED),y)
 dir_y						+= nfsd
-dir_y						+= util-linux
 dir_y						+= optware
 dir_$(FS_EXT_ENABLED)				+= e2fsprogs
 dir_$(FS_FAT_ENABLED)				+= dosfstools
@@ -146,6 +147,8 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_TRANSMISSION)	+= transmission
 dir_$(CONFIG_FIRMWARE_INCLUDE_ARIA)		+= aria2
 endif
 
+dir_y						+= util-linux
+
 ifdef CONFIG_MTD_UBI
 ifneq ($(STORAGE_ENABLED),y)
 dir_y						+= util-linux
@@ -157,7 +160,7 @@ endif
 all:
 	for i in $(dir_y) ; do \
 		[ ! -d $$i ] || \
-		$(MAKE) -j1 -C $$i || \
+		$(MAKE) -C $$i || \
 		exit $$? ; \
 	done
 

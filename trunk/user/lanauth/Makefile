@@ -1,4 +1,4 @@
-CCFLAGS+=-Os -Wall -I. $(EXTRACFLAGS)
+CCFLAGS+= -Wall -I. $(EXTRACFLAGS)
 LDFLAGS+=-s
 LIBS=md5.o rmd160.o
 

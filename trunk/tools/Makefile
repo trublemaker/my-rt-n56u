@@ -20,13 +20,13 @@ all : install
 
 install :
 	mkdir -p bin
-	make -C mkimage
-	make -C sstrip
-	make -C mksquash_lzma-3.2 install
+	$(MAKE) -j1 -C mkimage
+	$(MAKE) -j1 -C sstrip
+	$(MAKE) -j1 -C mksquash_lzma-3.2 install
 ifeq ($(CONFIG_RT2880_ROOTFS_IN_FLASH),y)
-	make -C mksquash_xz-4.0 install
+	$(MAKE) -j1 -C mksquash_xz-4.0 install
 endif
-
+	
 clean:
 	rm -rf ./bin
 	rm -rf ./headers

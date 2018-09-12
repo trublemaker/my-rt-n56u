@@ -52,6 +52,7 @@ HOST_NCPU	= $(shell if [ -f /proc/cpuinfo ]; then n=`grep -c processor /proc/cpu
 CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
+	  	
 
 ifneq ($(findstring linux-3.0,$(LINUXDIR)),)
 FIRMWARE_KERNEL_VER="3.0"
@@ -79,11 +80,11 @@ endif
 KERNEL_CROSS_COMPILE ?= $(CROSS_COMPILE)
 ifneq ($(SUBARCH),)
 # Using UML, so make the kernel and non-kernel with different ARCHs
-MAKEARCH = $(MAKE) ARCH=$(SUBARCH) CROSS_COMPILE=$(CROSS_COMPILE)
-MAKEARCH_KERNEL = $(MAKE) ARCH=$(ARCH) SUBARCH=$(SUBARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE)
+MAKEARCH = $(MAKE) -j$(HOST_NCPU) ARCH=$(SUBARCH) CROSS_COMPILE=$(CROSS_COMPILE)
+MAKEARCH_KERNEL = $(MAKE) -j$(HOST_NCPU) ARCH=$(ARCH) SUBARCH=$(SUBARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE)
 else
-MAKEARCH = $(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
-MAKEARCH_KERNEL = $(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE)
+MAKEARCH = $(MAKE) -j$(HOST_NCPU) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
+MAKEARCH_KERNEL = $(MAKE) -j$(HOST_NCPU) ARCH=$(ARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE)
 endif
 DIRS = libc libs user
 
@@ -152,6 +153,8 @@ subdirs: libs
 	for dir in $(DIRS) ; do [ ! -d $$dir ] || $(MAKEARCH) -C $$dir || exit 1 ; done
 
 dep:
+	echo ************ -j$(HOST_NCPU) 
+
 	@if [ ! -f $(LINUXDIR)/.config ] ; then \
 		echo "ERROR: you need to do a 'make config' first" ; \
 		exit 1 ; \
@@ -161,9 +164,10 @@ dep:
 
 .PHONY: tools
 tools:
-	make -C tools
+	make -C tools 
 
 clean:
+	
 	make clean -C tools
 	for dir in  $(DIRS); do [ ! -d $$dir ] || $(MAKEARCH) -C $$dir clean ; done
 	$(MAKEARCH_KERNEL) -C $(LINUXDIR) distclean

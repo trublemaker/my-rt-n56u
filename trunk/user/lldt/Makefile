@@ -1,5 +1,5 @@
 VPATH = src
-CFLAGS += -Os -pipe -Wall -Wno-unused
+CFLAGS += -pipe -Wall -Wno-unused
 OS_LAYER = osl-linux.c
 
 SHDIR = $(ROOTDIR)/user/shared
