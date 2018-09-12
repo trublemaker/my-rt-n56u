@@ -24,7 +24,7 @@ SBINDIR = $(PREFIX)/sbin
 DOCDIR = $(PREFIX)/share/doc
 MANDIR = $(PREFIX)/share/man
 
-OPTFLAGS = -Os -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+OPTFLAGS = -O3 -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 #WARNFLAGS = -Wall -pedantic -std=c99
 WARNFLAGS = -Wall
 DEBUGFLAGS =

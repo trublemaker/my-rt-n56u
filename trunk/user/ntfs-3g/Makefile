@@ -1,6 +1,6 @@
 SRC_NAME=ntfsprogs-2014.2.15
 
-CFLAGS += -O2 -ffunction-sections -fdata-sections
+CFLAGS += -O3 -ffunction-sections -fdata-sections
 LDFLAGS += -Wl,--gc-sections
 
 all: config_test

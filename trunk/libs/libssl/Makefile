@@ -38,6 +38,7 @@ config_test:
 	fi )
 
 configure:
+	@echo "**** $(SRC_NAME) $(COPTS) $(LOPTS)"
 	( cd $(SRC_NAME) ; \
 	./Configure \
 		linux-mipsel \

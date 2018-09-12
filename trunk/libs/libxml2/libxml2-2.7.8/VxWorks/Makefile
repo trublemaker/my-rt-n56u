@@ -14,7 +14,7 @@ TOOL_FAMILY=gnu
 include $(WIND_USR)/tool/gnu/make.$(VXCPU)
 
 FLAGS = -Wall -g -Isrc -Isrc/include -D_REENTRANT=1
-#FLAGS = -Wall -O2 -Isrc -Isrc/include -D_REENTRANT=1
+#FLAGS = -Wall -O3 -Isrc -Isrc/include -D_REENTRANT=1
 
 FLAGS += $(DEFINE_CC) $(CC_ARCH_SPEC) -MD -MP -D_VX_CPU=_VX_$(CPU) -D_VX_TOOL_FAMILY=gnu -D_VX_TOOL=$(TOOL)
 ifeq ($(VXTYPE),RTP)

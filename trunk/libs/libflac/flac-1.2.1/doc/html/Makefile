@@ -68,7 +68,7 @@ CC = /opt/toolchain-rt3883/bin/mipsel-linux-uclibc-gcc -mips32r2 -march=mips32r2
 CCAS = $(CC)
 CCASFLAGS = $(CFLAGS)
 CCDEPMODE = depmode=gcc3
-CFLAGS = -O3 -funroll-loops -finline-functions -Wall -W -Winline -Os -fomit-frame-pointer -pipe  -DEMBED -I/opt/n56u-kwive/stage/include -Dlinux -D__linux__ -Dunix -Wall -Wno-trigraphs -Wno-pointer-sign -Wno-strict-aliasing -ffunction-sections -fdata-sections
+CFLAGS = -O3 -funroll-loops -finline-functions -Wall -W -Winline -O3 -fomit-frame-pointer -pipe  -DEMBED -I/opt/n56u-kwive/stage/include -Dlinux -D__linux__ -Dunix -Wall -Wno-trigraphs -Wno-pointer-sign -Wno-strict-aliasing -ffunction-sections -fdata-sections
 CPP = /opt/toolchain-rt3883/bin/mipsel-linux-uclibc-gcc -mips32r2 -march=mips32r2 -E
 CPPFLAGS = -DFLaC__INLINE=__inline__ -DNDEBUG -I$(top_builddir) -I$(srcdir)/include -I$(top_srcdir)/include -I/opt/n56u-kwive/stage/include
 CXX = /opt/toolchain-rt3883/bin/mipsel-linux-uclibc-g++ -mips32r2 -march=mips32r2

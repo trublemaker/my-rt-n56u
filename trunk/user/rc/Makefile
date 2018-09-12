@@ -9,7 +9,7 @@ INSTALLDIR = $(ROOTDIR)/romfs
 include $(SHDIR)/boards.mk
 include $(SHDIR)/cflags.mk
 
-CFLAGS += -s -I. -I$(SHDIR) -I$(SHDIR)/include
+CFLAGS += -g -s -I. -I$(SHDIR) -I$(SHDIR)/include
 CFLAGS += -I$(USERDIR)/wireless_tools
 CFLAGS += -I$(ROOTDIR)/$(LINUXDIR)/include/ralink
 
@@ -66,7 +66,7 @@ endif
 
 all: $(OBJS) Makefile
 	$(CC) -o $(EXEC) $(OBJS) $(LDFLAGS)
-	$(STRIP) $(EXEC)
+	#$(STRIP) $(EXEC)
 
 c.o:
 	$(CC) -c $*.c $(CFLAGS)

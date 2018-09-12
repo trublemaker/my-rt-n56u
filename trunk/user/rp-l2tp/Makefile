@@ -1,6 +1,6 @@
 SRC_NAME=rp-l2tp-0.5-rtn
 
-CFLAGS   =-O2 -fomit-frame-pointer -pipe -Wall -Wno-trigraphs -Wno-pointer-sign -Wno-strict-aliasing -I$(KERNEL_HEADERS_PATH)
+CFLAGS   =-O3 -fomit-frame-pointer -pipe -Wall -Wno-trigraphs -Wno-pointer-sign -Wno-strict-aliasing -I$(KERNEL_HEADERS_PATH)
 CFLAGS  +=-DPPPOL2TP_V1
 CFLAGS  += -ffunction-sections -fdata-sections
 LDFLAGS += -Wl,--gc-sections

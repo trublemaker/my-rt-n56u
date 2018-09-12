@@ -10,7 +10,7 @@ CDEF3=	-UNO_SLEEP			# Use the usleep function
 CDEF4=	-DFNDELAY=O_NDELAY		# Old name value
 CDEFS=	$(CDEF1) $(CDEF2) $(CDEF3) $(CDEF4)
 
-COPTS=	-O2 -g -pipe
+COPTS=	-O3 -g -pipe
 CFLAGS=	$(COPTS) $(CDEFS)
 
 INSTALL= install

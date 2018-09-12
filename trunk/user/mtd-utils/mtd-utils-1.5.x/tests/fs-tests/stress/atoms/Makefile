@@ -3,7 +3,7 @@ ifeq ($(origin CC),default)
 CC = gcc
 endif
 
-CFLAGS := $(CFLAGS) -Wall -g -O2 -I../../lib
+CFLAGS := $(CFLAGS) -Wall -g -O3 -I../../lib
 
 LDFLAGS := $(LDFLAGS)
 

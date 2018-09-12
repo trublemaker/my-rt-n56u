@@ -1,6 +1,6 @@
 SRC_NAME=transmission-2.9x
 
-CFLAGS   += -O2 -ffunction-sections -fdata-sections -D_LARGEFILE64_SOURCE -D_LFS64_LARGEFILE
+CFLAGS   += -O3 -ffunction-sections -fdata-sections -D_LARGEFILE64_SOURCE -D_LFS64_LARGEFILE
 LDFLAGS  += -Wl,--gc-sections
 
 THISDIR = $(shell pwd)

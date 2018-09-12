@@ -106,7 +106,7 @@ endif
 # Other flags
 CFLAGS += -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow \
 	-Wpointer-arith -Wcast-qual -Winline -I.
-#CFLAGS=-Os -W -Wall -Wstrict-prototypes -I.
+#CFLAGS=-O3 -W -Wall -Wstrict-prototypes -I.
 DEPFLAGS=-MMD
 XCFLAGS=$(CFLAGS) $(DEPFLAGS) $(WARN) $(HEADERS) $(WELIB_FLAG) $(WEDEF_FLAG)
 PICFLAG=-fPIC

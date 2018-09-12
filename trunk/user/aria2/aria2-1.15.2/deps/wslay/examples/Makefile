@@ -22,7 +22,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 CC = gcc
 CXX = g++
-CFLAGS = -g -O2 -I../lib/includes
+CFLAGS = -g -O3 -I../lib/includes
 CXXFLAGS = $(CFLAGS)
 LDFLAGS = -L../lib/.libs
 LIBS = -lwslay -lnettle
