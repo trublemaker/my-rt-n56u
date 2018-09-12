@@ -1580,6 +1580,12 @@ static int __udp4_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
 	sk = sk_nulls_head(&hslot->head);
 	dif = skb->dev->ifindex;
 	sk = udp_v4_mcast_next(net, sk, uh->dest, daddr, uh->source, saddr, dif);
+	
+	if(0 && daddr==0x01005def){
+		printk("**** udp4_lib_mcast_deliver sk:%08X, saddr:%08x daddr:%08x.\n",
+					sk,saddr,daddr);
+	}
+			
 	while (sk) {
 		stack[count++] = sk;
 		sk = udp_v4_mcast_next(net, sk_nulls_next(sk), uh->dest,
@@ -1676,6 +1682,11 @@ int __udp4_lib_rcv(struct sk_buff *skb, struct udp_table *udptable,
 	ulen = ntohs(uh->len);
 	saddr = ip_hdr(skb)->saddr;
 	daddr = ip_hdr(skb)->daddr;
+	
+	if(0 &&  daddr==0x01005def){
+		printk("**** udp4_lib_rcv saddr:%08x daddr:%08x.\n",
+			saddr,daddr);
+	}
 
 	if (ulen > skb->len)
 		goto short_packet;
@@ -1746,6 +1757,12 @@ csum_error:
 		       &saddr, ntohs(uh->source), &daddr, ntohs(uh->dest),
 		       ulen);
 drop:
+
+	if(0 && daddr==0x01005def){
+		printk("**** udp4_lib_rcv drop  saddr:%08x daddr:%08x.\n",
+			saddr,daddr);
+	}
+			
 	UDP_INC_STATS_BH(net, UDP_MIB_INERRORS, proto == IPPROTO_UDPLITE);
 	kfree_skb(skb);
 	return 0;
@@ -1753,6 +1770,7 @@ drop:
 
 int udp_rcv(struct sk_buff *skb)
 {
+	if(0) printk("**** udp_rcv .\n");
 	return __udp4_lib_rcv(skb, &udp_table, IPPROTO_UDP);
 }
 

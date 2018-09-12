@@ -206,6 +206,9 @@ static int ip_local_deliver_finish(struct sk_buff *skb)
 	rcu_read_lock();
 	{
 		int protocol = ip_hdr(skb)->protocol;
+		if(0 && IPPROTO_UDP==protocol){
+			printk("**** ildf IPPROTO_UDP");
+		}
 		const struct net_protocol *ipprot;
 		int raw;
 
@@ -358,6 +361,12 @@ static int ip_rcv_finish(struct sk_buff *skb)
 	if (skb_dst(skb) == NULL) {
 		int err = ip_route_input_noref(skb, iph->daddr, iph->saddr,
 					       iph->tos, skb->dev);
+						   
+		if(0 && err && iph->daddr==0x01005def){
+				printk("****ip_rcv_finish err:%08X saddr:%08x daddr:%08x.\n",
+					err,iph->saddr,iph->daddr);
+		}	
+		
 		if (unlikely(err)) {
 			if (err == -EXDEV)
 				NET_INC_STATS_BH(dev_net(skb->dev),
@@ -388,9 +397,20 @@ static int ip_rcv_finish(struct sk_buff *skb)
 		IP_UPD_PO_STATS_BH(dev_net(rt->dst.dev), IPSTATS_MIB_INBCAST,
 				skb->len);
 
-	return dst_input(skb);
+	int rval = dst_input(skb);
+	if(0 && iph->daddr==0x01005def){
+		printk("****ip_rcv_finish dst_input rval:%2d saddr:%08x daddr:%08x rt->rt_type(%d) == RTN_MULTICAST(%d).\n",
+				rval,
+				iph->saddr,iph->daddr,
+				rt->rt_type ,RTN_MULTICAST);
+	}
+			
+	return rval;
 
 drop:
+	if(0 && iph->daddr==0x01005def){
+				printk("**** ip_rcv_finish drop .\n");
+	}
 	kfree_skb(skb);
 	return NET_RX_DROP;
 }

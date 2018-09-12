@@ -1185,7 +1185,11 @@ restart:
 				return ERR_PTR(err);
 			}
 		}
-
+				if(rth->rt_dst==0x01005def){
+				if(0 )
+					printk("**** rt_intern_hash skip_hashing saddr:%08x daddr:%08x.\n",
+					rth->rt_src,rth->rt_dst);
+			}
 		goto skip_hashing;
 	}
 
@@ -1313,6 +1317,8 @@ restart:
 
 	spin_unlock_bh(rt_hash_lock_addr(hash));
 
+
+			
 skip_hashing:
 	if (skb)
 		skb_dst_set(skb, &rt->dst);
@@ -2071,13 +2077,19 @@ static int ip_route_input_mc(struct sk_buff *skb, __be32 daddr, __be32 saddr,
 
 	hash = rt_hash(daddr, saddr, dev->ifindex, rt_genid(dev_net(dev)));
 	rth = rt_intern_hash(hash, rth, skb, dev->ifindex);
+	
+	//printk("**** ip_route_input_mc return %d.\n", IS_ERR(rth) ? PTR_ERR(rth) : 0);
+	
 	return IS_ERR(rth) ? PTR_ERR(rth) : 0;
 
 e_nobufs:
+	//printk("**** ip_route_input_mc return ENOBUFS.\n");
 	return -ENOBUFS;
 e_inval:
+	//printk("**** ip_route_input_mc return EINVAL.\n");
 	return -EINVAL;
 e_err:
+	//printk("**** ip_route_input_mc return err, %d.\n",err);
 	return err;
 }
 
@@ -2475,10 +2487,19 @@ skip_cache:
 	 */
 	if (ipv4_is_multicast(daddr)) {
 		struct in_device *in_dev = __in_dev_get_rcu(dev);
-
+			
+			if(0 && daddr==0x01005def){
+				printk("**** in_dev:%08X saddr:%08x daddr:%08x.\n",
+					in_dev,saddr,daddr);
+			}
+			
 		if (in_dev) {
 			int our = ip_check_mc_rcu(in_dev, daddr, saddr,
 						  ip_hdr(skb)->protocol);
+			if(0 && daddr==0x01005def){
+				printk("**** our:%d  .\n",
+					our );
+			}
 			if (our
 #ifdef CONFIG_IP_MROUTE
 				||
@@ -2488,11 +2509,13 @@ skip_cache:
 			   ) {
 				int res = ip_route_input_mc(skb, daddr, saddr,
 							    tos, dev, our);
+				//printk("**** res:%d  .\n", res );				
 				rcu_read_unlock();
 				return res;
 			}
 		}
 		rcu_read_unlock();
+		if(0 && daddr==0x01005def)printk("**** return EINVAL.\n");
 		return -EINVAL;
 	}
 	res = ip_route_input_slow(skb, daddr, saddr, tos, dev);
@@ -3113,6 +3136,11 @@ static int inet_rtm_getroute(struct sk_buff *in_skb, struct nlmsghdr* nlh, void 
 		err = ip_route_input(skb, dst, src, rtm->rtm_tos, dev);
 		local_bh_enable();
 
+		if(0 && dst==0x01005def){
+				printk("**** err:%d src:%08x dst:%08x.\n" ,
+					err,src,dst);
+		}
+			
 		rt = skb_rtable(skb);
 		if (err == 0 && rt->dst.error)
 			err = -rt->dst.error;
