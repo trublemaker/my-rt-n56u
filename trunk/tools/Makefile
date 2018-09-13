@@ -20,8 +20,8 @@ all : install
 
 install :
 	mkdir -p bin
-	$(MAKE) -j1 -C mkimage
-	$(MAKE) -j1 -C sstrip
+	$(MAKE) -j$(HOST_NCPU) -C mkimage
+	$(MAKE) -j$(HOST_NCPU) -C sstrip
 	$(MAKE) -j1 -C mksquash_lzma-3.2 install
 ifeq ($(CONFIG_RT2880_ROOTFS_IN_FLASH),y)
 	$(MAKE) -j1 -C mksquash_xz-4.0 install

@@ -12,13 +12,13 @@ endif
 
 all:
 ifeq ($(IPROUTE2_ENABLED),y)
-	$(MAKE) -C $(SRC_NAME)
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
 else
 	exit 0
 endif
 
 clean:
-	$(MAKE) -C $(SRC_NAME) distclean CONFIG_IPV6=y CONFIG_XFRM=y
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) distclean CONFIG_IPV6=y CONFIG_XFRM=y
 
 romfs:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_QOS),y)

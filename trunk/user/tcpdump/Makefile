@@ -4,7 +4,7 @@ CFLAGS += -ffunction-sections -fdata-sections -DTCPDUMP_MINI
 LDFLAGS += -Wl,--gc-sections
 
 all: config_test build
-
+	echo "---------------------tcpdump make all-------------------------"
 config_test:
 	( if [ -f ./config_done ]; then \
 		echo "the same configuration"; \
@@ -29,7 +29,9 @@ configure:
 	)
 
 build:
-	$(MAKE) -C $(SRC_NAME) TCPDUMP_MINI=1
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) TCPDUMP_MINI=1
+	
+	#-j$(HOST_NCPU)
 
 clean:
 	if [ -f $(SRC_NAME)/Makefile ] ; then \

@@ -43,12 +43,12 @@ libl2tp.a: $(OBJS)
 	@RANLIB@ $@ || true
 
 l2tpd: libl2tp.a libevent/libevent.a
-	$(MAKE) -C handlers
+	$(MAKE) -j$(HOST_NCPU) -C handlers
 	@CC@ -o l2tpd -rdynamic $(OBJS) $(EXTRA_LIBS)
 
 libevent/libevent.a:
 	test -d libevent || ln -s ../libevent .
-	$(MAKE) -C libevent
+	$(MAKE) -j$(HOST_NCPU) -C libevent
 
 %.o: %.c
 	@CC@ -c -o $@ $(CFLAGS) $<
@@ -59,7 +59,7 @@ depend: .depend
 	@CC@ -M $(CFLAGS) $^ > .depend
 
 handlers:
-	$(MAKE) -C handlers
+	$(MAKE) -j$(HOST_NCPU) -C handlers
 
 # Release requires GNU tar!!
 release: FORCE
@@ -93,7 +93,7 @@ install: all
 	$(install) -m 644 man/l2tpd.8 $(RPM_INSTALL_ROOT)$(DESTDIR)$(mandir)/man8
 	$(install) -m 644 man/l2tp.conf.5 $(RPM_INSTALL_ROOT)$(DESTDIR)$(mandir)/man5
 
-	$(MAKE) -C handlers install
+	$(MAKE) -j$(HOST_NCPU) -C handlers install
 
 FORCE:
 

@@ -3,8 +3,8 @@ SRC_NAME=ipset-6.x
 THISDIR = $(shell pwd)
 
 all: config_test
-	$(MAKE) -C $(SRC_NAME)
-	$(MAKE) modules -C $(SRC_NAME)
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
+	$(MAKE) -j$(HOST_NCPU) modules -C $(SRC_NAME)
 
 config_test:
 	( if [ -f ./config_done ]; then \

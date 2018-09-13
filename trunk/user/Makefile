@@ -160,23 +160,23 @@ endif
 all:
 	for i in $(dir_y) ; do \
 		[ ! -d $$i ] || \
-		$(MAKE) -C $$i || \
+		$(MAKE) -j1 -C $$i || \
 		exit $$? ; \
 	done
 
 %_only:
-	$(MAKE) -C $(@:_only=)
+	+@$(MAKE) -j1 -C $(@:_only=)
 
 %_romfs:
-	$(MAKE) -C $(@:_romfs=) romfs
+	+@$(MAKE) -j1 -C $(@:_romfs=) romfs
 
 %_clean:
-	$(MAKE) -C $(@:_clean=) clean
+	$(MAKE)  $(@:_clean=) clean
 
 romfs:
 	for i in $(dir_y) ; do \
 		[ ! -d $$i ] || \
-		$(MAKE) -C $$i romfs ; \
+		$(MAKE) -j1 -C $$i romfs ; \
 	done
 
 clean:

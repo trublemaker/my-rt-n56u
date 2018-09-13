@@ -276,17 +276,17 @@ build_libcrypto: build_crypto build_engines libcrypto.pc
 build_libssl: build_ssl libssl.pc
 
 build_crypto:
-	@dir=crypto; target=all; $(BUILD_ONE_CMD)
+	+@dir=crypto; target=all; $(BUILD_ONE_CMD)
 build_ssl: build_crypto
-	@dir=ssl; target=all; $(BUILD_ONE_CMD)
+	+@dir=ssl; target=all; $(BUILD_ONE_CMD)
 build_engines: build_crypto
-	@dir=engines; target=all; $(BUILD_ONE_CMD)
+	+@dir=engines; target=all; $(BUILD_ONE_CMD)
 build_apps: build_libs
-	@dir=apps; target=all; $(BUILD_ONE_CMD)
+	+@dir=apps; target=all; $(BUILD_ONE_CMD)
 build_tests: build_libs
-	@dir=test; target=all; $(BUILD_ONE_CMD)
+	+@dir=test; target=all; $(BUILD_ONE_CMD)
 build_tools: build_libs
-	@dir=tools; target=all; $(BUILD_ONE_CMD)
+	+@dir=tools; target=all; $(BUILD_ONE_CMD)
 
 all_testapps: build_libs build_testapps
 build_testapps:
@@ -539,7 +539,7 @@ install_sw:
 	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i; \
 	chmod 644 $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i ); \
 	done;
-	@set -e; target=install; $(RECURSIVE_BUILD_CMD)
+	+@set -e; target=install; $(RECURSIVE_BUILD_CMD)
 	@set -e; liblist="$(LIBS)"; for i in $$liblist ;\
 	do \
 		if [ -f "$$i" ]; then \

@@ -12,7 +12,7 @@ ETCDIR = $(INSTROOT)/tmp/ppp
 # uid 0 = root
 INSTALL= install
 
-MFLAGS=$(if $(CONFIG_IPV6),HAVE_INET6=y,)
+MFLAGS=$(if $(CONFIG_IPV6),HAVE_INET6=y,) -j$(HOST_NCPU)
 
 all:
 	cd chat; $(MAKE) $(MFLAGS) all

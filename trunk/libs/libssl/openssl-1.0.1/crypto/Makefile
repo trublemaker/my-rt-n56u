@@ -85,11 +85,11 @@ testapps:
 	@if [ -z "$(THIS)" ]; then $(MAKE) -f $(TOP)/Makefile reflect THIS=$@; fi
 
 subdirs:
-	@target=all; $(RECURSIVE_MAKE)
+	+@target=all; $(RECURSIVE_MAKE)
 
 files:
 	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
-	@target=files; $(RECURSIVE_MAKE)
+	+@target=files; $(RECURSIVE_MAKE)
 
 links:
 	@$(PERL) $(TOP)/util/mklink.pl ../include/openssl $(EXHEADER)
@@ -107,11 +107,11 @@ $(LIB):	$(LIBOBJ)
 
 shared: buildinf.h lib subdirs
 	if [ -n "$(SHARED_LIBS)" ]; then \
-		(cd ..; $(MAKE) $(SHARED_LIB)); \
+		(cd ..; $(MAKE) -j4 $(SHARED_LIB)); \
 	fi
 
 libs:
-	@target=lib; $(RECURSIVE_MAKE)
+	+@target=lib; $(RECURSIVE_MAKE)
 
 install:
 	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
@@ -120,7 +120,7 @@ install:
 	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i; \
 	chmod 644 $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i ); \
 	done;
-	@target=install; $(RECURSIVE_MAKE)
+	+@target=install; $(RECURSIVE_MAKE)
 
 lint:
 	@target=lint; $(RECURSIVE_MAKE)

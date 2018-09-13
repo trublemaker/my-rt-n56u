@@ -25,9 +25,9 @@ BuildSquashfs = 1
 export
 
 all:
-	${MAKE} -C ${LzmaC} -f sqlzma.mk $@
-	${MAKE} -C ${LzmaAlone} -f sqlzma.mk $@
-	${MAKE} -C ${SqTools} $@
+	${MAKE} -j$(HOST_NCPU) -C ${LzmaC} -f sqlzma.mk $@
+	${MAKE} -j$(HOST_NCPU) -C ${LzmaAlone} -f sqlzma.mk $@
+	${MAKE} -j$(HOST_NCPU) -C ${SqTools} $@
 
 clean:
 	${MAKE} -C ${LzmaC} -f sqlzma.mk $@

@@ -13,7 +13,8 @@ config_test:
 	else \
 		make configure && touch config_done; \
 	fi )
-
+	date
+	
 configure:
 	( cd $(SRC_NAME) ; \
 	./configure \
@@ -24,11 +25,11 @@ configure:
 	)
 
 build:
-	$(MAKE) -C $(SRC_NAME)
+	$(MAKE) -j1 -C $(SRC_NAME)
 
 clean:
 	if [ -f $(SRC_NAME)/Makefile ] ; then \
-		$(MAKE) -C $(SRC_NAME) distclean ; \
+		$(MAKE) -j1 -C $(SRC_NAME) distclean ; \
 	fi ; \
 	rm -f config_done
 	rm -f l2tpd

@@ -1,7 +1,7 @@
 SRC_NAME=libnfnetlink-1.0.x
 
 all: config_test
-	$(MAKE) -C $(SRC_NAME)
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
 
 config_test:
 	( if [ -f ./config_done ]; then \
@@ -27,7 +27,7 @@ clean:
 	rm -f config_done
 
 install:
-	$(MAKE) -C $(SRC_NAME) install DESTDIR=""
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) install DESTDIR=""
 
 romfs:
 

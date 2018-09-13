@@ -1,10 +1,10 @@
 SRC_NAME=src
 
 all:
-	make -C $(SRC_NAME) embedded
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) embedded
 
 clean:
-	make -C $(SRC_NAME) clean
+	$(MAKE) -C $(SRC_NAME) clean
 
 romfs:
 	mkdir -p $(ROMFSDIR)/etc_ro/xupnpd

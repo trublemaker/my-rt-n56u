@@ -6,8 +6,8 @@ CFLAGS += -ffunction-sections -fdata-sections
 LDFLAGS += -Wl,--gc-sections
 
 all: config_test
-	$(MAKE) -C $(SRC_NAME) && \
-	$(MAKE) -C $(SRC_NAME) install DESTDIR=$(THISDIR)/install && \
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) && \
+	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME) install DESTDIR=$(THISDIR)/install && \
 	cp -rfP $(THISDIR)/install/lib $(STAGEDIR) && \
 	cp -rfP $(THISDIR)/install/include $(STAGEDIR)
 

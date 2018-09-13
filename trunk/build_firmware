@@ -488,5 +488,9 @@ make dep
 echo --------------------------MAKE-ALL--------------------------------
 make $@
 
+#linux libc_only libs_only user_only
+
+#-j4 $@
+
 #all: tools modules libc_only libs_only user_only romfs linux image
 #all: tools linux libc_only libs_only user_only romfs image

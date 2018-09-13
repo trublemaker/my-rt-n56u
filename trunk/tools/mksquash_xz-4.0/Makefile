@@ -268,7 +268,7 @@ install: mksquashfs unsquashfs
 
 .PHONY: xzutils xzutils-configure
 xzutils: $(XZUTILSDIR)/configure $(XZUTILSDIR)/Makefile
-	$(MAKE) -C $(XZUTILSDIR)
+	$(MAKE) -j$(HOST_NCPU) -C $(XZUTILSDIR)
 
 $(XZUTILSDIR)/Makefile:
 	$(MAKE) xzutils-configure

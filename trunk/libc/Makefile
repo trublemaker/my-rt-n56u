@@ -17,22 +17,22 @@ LIBC_DIR = uClibc-0.9.33.2
 
 all:
 	$(MAKE) -j$(HOST_NCPU) -C $(LIBC_DIR) && \
-	$(MAKE) -C $(LIBC_DIR) utils || \
+	$(MAKE) -j$(HOST_NCPU) -C $(LIBC_DIR) utils || \
 	exit $$? ; \
 	if [ ! -f $(DESTDIR)/.installed_$(LIBC_DIR) ] ; then \
-		$(MAKE) -C $(LIBC_DIR) install_runtime && \
-		$(MAKE) -C $(LIBC_DIR) install_utils && \
+		$(MAKE) -j$(HOST_NCPU) -C $(LIBC_DIR) install_runtime && \
+		$(MAKE) -j$(HOST_NCPU) -C $(LIBC_DIR) install_utils && \
 		touch $(DESTDIR)/.installed_$(LIBC_DIR) ; \
 	fi
 
 %_only:
-	$(MAKE) -C $(@:_only=)
+	$(MAKE) -j$(HOST_NCPU) -C $(@:_only=)
 
 %_romfs:
-	$(MAKE) -C $(@:_romfs=) romfs
+	$(MAKE) -j$(HOST_NCPU) -C $(@:_romfs=) romfs
 
 %_clean:
-	$(MAKE) -C $(@:_clean=) clean
+	$(MAKE) -j$(HOST_NCPU) -C $(@:_clean=) clean
 
 romfs:
 	$(STRIP) $(DESTDIR)/bin/ldd ; \

@@ -51,9 +51,11 @@ HEADER=	$(EXHEADER) ssl_locl.h kssl_lcl.h
 ALL=    $(GENERAL) $(SRC) $(HEADER)
 
 top:
+	echo top
 	(cd ..; $(MAKE) DIRS=$(DIR) all)
 
 all:	shared
+	echo all
 
 lib:	$(LIBOBJ)
 	$(AR) $(LIB) $(LIBOBJ)
@@ -61,10 +63,11 @@ lib:	$(LIBOBJ)
 	@touch lib
 
 shared: lib
+	@echo "make ssl $(MAKE) -j$(HOST_NCPU) $(SHARED_LIB)"
 	if [ -n "$(SHARED_LIBS)" ]; then \
-		(cd ..; $(MAKE) $(SHARED_LIB)); \
+		(cd ..; $(MAKE) -j$(HOST_NCPU) $(SHARED_LIB)); \
 	fi
-
+	
 files:
 	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
 
