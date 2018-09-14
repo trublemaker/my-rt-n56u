@@ -21,6 +21,7 @@ Contributors of this project are not responsible for what happens next.
 * 1.use -O3 build.
 * 2.parallel build, build time form 7min to 4min.
 * 3.remove linux-3.0.x from source.
-* 4.modi /etc/profile,add some alias; add speed script
-* 5.build busybox with CONFIG_SH_MATH_SUPPORT_64, so support long math
+* 4.modi /etc/profile,add some alias; add speed script.
+* 5.build busybox with CONFIG_SH_MATH_SUPPORT_64, so support long math.
 * 6.add app mcast to test multi cast.
+* 7.build hexdump to view hex files.
