@@ -25,3 +25,4 @@ Contributors of this project are not responsible for what happens next.
 * 5.build busybox with CONFIG_SH_MATH_SUPPORT_64, so support long math.
 * 6.add app mcast to test multi cast.
 * 7.build hexdump to view hex files.
+* 8.add gdbserver to remote debug program.
