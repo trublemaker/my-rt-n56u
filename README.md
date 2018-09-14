@@ -16,3 +16,7 @@ Contributors of this project are not responsible for what happens next.
 ### Contribution guidelines ###
 
 * To be completed
+
+### My Changes ###
+1.use -O3 build
+2.parallel build, build time form 7min to 4min.
