@@ -53,17 +53,31 @@ then
         fi
 fi
 
-str=`/sbin/ifconfig $NET_INTERFACE | grep 'RX bytes' `
+#str=`/sbin/ifconfig $NET_INTERFACE | grep 'RX packets' `
+str=`cat /proc/net/dev | grep $NET_INTERFACE`
 
-RX_NOW=`echo $str | awk '{printf $2}' | awk -F: '{printf  $2}'`
+if [ "$str" = "" ]
+then
+	echo "interface:$NET_INTERFACE is not exist. exit"
+	exit 0
+fi
 
+#Inter-|   Receive                                                |  Transmit
+# face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+#enp5s0: 3809       88379   0 8352    0     0          0  41200539 3992      7368    0    0    0     0       0          0
 
+#echo $str
+RX_NOW=`echo $str | awk '{printf $2}' `
 
 RX_PRE=$RX_NOW
 
-str=`/sbin/ifconfig $NET_INTERFACE | grep 'TX bytes' `
-TX_NOW=`echo $str | awk '{printf $6}' | awk -F: '{printf  $2}' `
+#echo $RX_NOW && exit 0;
+
+#str=`/sbin/ifconfig $NET_INTERFACE | grep 'TX packets' `
+TX_NOW=`echo $str | awk '{printf $10}' `
 TX_PRE=$TX_NOW
+
+#echo "$RX_NOW -- $TX_NOW" && exit 0;
 
 sleep $DaleyTime
 
@@ -72,20 +86,21 @@ sleep $DaleyTime
 
 while :
 do
-        str=`/sbin/ifconfig $NET_INTERFACE | grep 'RX bytes' `
-        RX_NOW=`echo $str | awk '{printf $2}' | awk -F: '{printf  $2}' `
-
-
+        str=`cat /proc/net/dev | grep $NET_INTERFACE `
+        RX_NOW=`echo $str | awk '{printf $2}' `
+                
+        #echo "$RX_NOW $RX_PRE $RX_SPEED"
         RX_SPEED=$(( $RX_NOW - $RX_PRE ))
+
 
         #echo echo $RX_SPEED
         RX_SPEED=$(($RX_SPEED/$DaleyTime))
 
-        str=`/sbin/ifconfig $NET_INTERFACE | grep 'TX bytes' `
-        TX_NOW=`echo $str | awk '{printf $6}' | awk -F: '{printf  $2}' `
+        TX_NOW=`echo $str | awk '{printf $10}' `
                 #echo  $TX_NOW-$TX_PRE-$DaleyTime
         TX_SPEED=$(( ($TX_NOW-$TX_PRE)/$DaleyTime ))
 
+        #echo $RX_SPEED '     ' $TX_SPEED
         echo $NET_INTERFACE: RXSpeed:`show_k $RX_SPEED`k/s RX Count:`show_m $RX_NOW`M '|' TXSpeed:`show_k $TX_SPEED`k/s TX Count:`show_m $TX_NOW`M ' ' `date +%T`  #.%N
 
         sleep $DaleyTime
