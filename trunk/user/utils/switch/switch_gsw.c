@@ -1629,10 +1629,13 @@ void set_mirror_to(int argc, char *argv[])
 	}
 
 	reg_read(REG_ESW_WT_MAC_MFC, &value);
+	printf("reg_read  REG_ESW_WT_MAC_MFC:%08x value:%08x.\n",REG_ESW_WT_MAC_MFC, value);
+	
 	value |= 0x1 << 3;
 	value &= 0xfffffff8;
 	value |= idx << 0;
 
+	printf("reg_write REG_ESW_WT_MAC_MFC:%08x value:%08x.\n",REG_ESW_WT_MAC_MFC, value);
 	reg_write(REG_ESW_WT_MAC_MFC, value);
 }
 
@@ -1656,10 +1659,12 @@ void set_mirror_from(int argc, char *argv[])
 
 	offset = (0x2004 | (idx << 8));
 	reg_read(offset, &value);
+	printf("reg_read  offset:%08x value:%08x.\n",offset, value);
 
 	value &= 0xfffffcff;
 	value |= mirror << 8;
 
+	printf("reg_write offset:%08x value:%08x.\n",offset, value);
 	reg_write(offset, value);
 }
 
