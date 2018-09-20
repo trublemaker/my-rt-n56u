@@ -334,6 +334,13 @@ source "drivers/net/wireless/ralink/mt76x3_ap/Kconfig"
 endmenu
 endif
 
+if (RT_FIRST_IF_MT7615E || RT_SECOND_IF_MT7615E)
+menu "AP MODE MediaTek MT7615E xxxx PCIe Wireless driver"
+source "drivers/net/wireless/ralink/mt7615/mt_wifi_ap/Kconfig"
+#linux-3.4.x/drivers/net/wireless/ralink/mt7615/mt_wifi_ap
+endmenu
+endif
+
 if (!RT_FIRST_IF_NONE || !RT_SECOND_IF_NONE)
 menu "Wireless drivers common configs"
 source "drivers/net/wireless/ralink/Kconfig"

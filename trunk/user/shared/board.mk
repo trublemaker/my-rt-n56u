@@ -1,8 +1,8 @@
 ##################################################################
 # Board PID # Board Name       # PRODUCT # Note
 ##################################################################
-# RT-N56U   # ASUS RT-N56U     # RT3883  #
+# NEWIFI-D1 # LENOVO NEWIFI D1  # MT7621  #
 ##################################################################
 
-CFLAGS += -DBOARD_N56U -DVENDOR_ASUS
-BOARD_NUM_USB_PORTS=2
+CFLAGS += -DBOARD_K2P -DVENDOR_PHICOMM
+BOARD_NUM_USB_PORTS=0
