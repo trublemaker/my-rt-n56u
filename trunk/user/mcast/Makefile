@@ -1,4 +1,4 @@
-EXEC = mcast 
+EXEC = mcast speed
 
 RP_VERSION=3.12
 CFLAGS += -O3
@@ -12,6 +12,9 @@ all: $(EXEC)
 mcast:  mcast.o ifaddr.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
+speed:  speed.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+	
 romfs:
 	$(ROMFSINST) mcast /usr/bin/mcast
 	$(ROMFSINST) speed /usr/bin/speed

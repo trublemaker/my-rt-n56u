@@ -3,6 +3,9 @@
 
 make CC=/opt/rt-n56u/toolchain-mipsel/toolchain-3.4.x/bin/mipsel-linux-uclibc-gcc
 
-ls -la mcast
+ls -la mcast speed
 
 /opt/rt-n56u/toolchain-mipsel/toolchain-3.4.x/bin/mipsel-linux-uclibc-strip mcast
+/opt/rt-n56u/toolchain-mipsel/toolchain-3.4.x/bin/mipsel-linux-uclibc-strip speed
+
+ls -la mcast speed
