@@ -82,6 +82,7 @@ dir_y						+= busybox
 dir_y						+= iptables
 dir_y						+= mcast
 dir_y						+= gdb
+dir_y						+= tinyproxy
 dir_$(CONFIG_FIRMWARE_INCLUDE_IPSET)		+= ipset
 dir_y						+= ebtables
 dir_y						+= iproute2

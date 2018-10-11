@@ -69,7 +69,7 @@ clean:
 	rm -rf install
 
 romfs:
-	$(ROMFSINST) $(THISDIR)/install/sbin/hexdump /sbin/hexdump
+	$(ROMFSINST) $(THISDIR)/install/bin/hexdump /sbin/hexdump
 	$(ROMFSINST) $(THISDIR)/install/sbin/blkid /sbin/blkid
 	$(ROMFSINST) $(THISDIR)/install/lib/libblkid.so.1.1.0 /lib/libblkid.so.1.1.0
 	$(ROMFSINST) $(THISDIR)/install/lib/libuuid.so.1.3.0 /lib/libuuid.so.1.3.0
