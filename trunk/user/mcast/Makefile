@@ -1,18 +1,21 @@
 EXEC = mcast speed
 
-RP_VERSION=3.12
 CFLAGS += -O3
+LDFLAGS =
+
 #CFLAGS += $(if $(CONFIG_RAETH_GMAC2),,-DUSE_SINGLE_MAC)
 
 all: $(EXEC)
 
+	@# @echo "-$(CFLAGS)-$(LDFLAGS)-"
+	
 %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ -fPIC $^
+	$(CC) $(CFLAGS) -c -o $@ $^
 
-mcast:  mcast.o ifaddr.o
+mcast: mcast.o ifaddr.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-speed:  speed.o
+speed: speed.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 	
 romfs:

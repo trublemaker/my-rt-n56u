@@ -132,9 +132,10 @@ int main(int argc, char** argv) {
         GetNetRate(fd, netdevice, &recvcur, &sendcur);
         
 		deltatime =tv_now.tv_sec + tv_now.tv_usec * 0.000001 - tv_pre.tv_sec - tv_pre.tv_usec * 0.000001;
-		recvrate = (recvcur - recvpre) / (1024 * deltatime);
-        
+		
+		recvrate = (recvcur - recvpre) / (1024 * deltatime);        
 		if (recvrate < 0) recvrate = 0; 
+		
         sendrate = (sendcur - sendpre) / (1024 * deltatime);
         if (sendrate < 0) sendrate = 0;
 		
