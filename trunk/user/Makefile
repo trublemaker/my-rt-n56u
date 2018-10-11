@@ -22,6 +22,7 @@ FS_NTFS_ENABLED=n
 STORAGE_ENABLED=n
 OPENSSH_ENABLED=n
 DROPBEAR_ENABLED=n
+TTYD_ENABLED=n
 SAMBA_ENABLED=n
 ifneq ($(CONFIG_FIRMWARE_INCLUDE_OPENSSH),y)
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_DROPBEAR),y)
@@ -32,6 +33,10 @@ endif
 endif
 else
 OPENSSH_ENABLED=y
+endif
+
+ifeq ($(CONFIG_FIRMWARE_INCLUDE_TTYD),y)
+TTYD_ENABLED=y
 endif
 
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_WINS),y)
@@ -75,6 +80,8 @@ dir_  =
 
 dir_y						+= busybox
 dir_y						+= iptables
+dir_y						+= mcast
+dir_y						+= gdb
 dir_$(CONFIG_FIRMWARE_INCLUDE_IPSET)		+= ipset
 dir_y						+= ebtables
 dir_y						+= iproute2
@@ -110,6 +117,7 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_OPENVPN)		+= openvpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_SSWAN)		+= strongswan
 dir_$(CONFIG_FIRMWARE_INCLUDE_XUPNPD)		+= xupnpd
 dir_$(CONFIG_FIRMWARE_INCLUDE_TCPDUMP)		+= tcpdump
+dir_$(TTYD_ENABLED)				+= ttyd
 dir_$(SAMBA_ENABLED)				+= samba3
 
 ifdef CONFIG_BLK_DEV_SD
@@ -127,7 +135,6 @@ endif
 
 ifeq ($(STORAGE_ENABLED),y)
 dir_y						+= nfsd
-dir_y						+= util-linux
 dir_y						+= optware
 dir_$(FS_EXT_ENABLED)				+= e2fsprogs
 dir_$(FS_FAT_ENABLED)				+= dosfstools
@@ -139,6 +146,8 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_FIREFLY)		+= firefly
 dir_$(CONFIG_FIRMWARE_INCLUDE_TRANSMISSION)	+= transmission
 dir_$(CONFIG_FIRMWARE_INCLUDE_ARIA)		+= aria2
 endif
+
+dir_y						+= util-linux
 
 ifdef CONFIG_MTD_UBI
 ifneq ($(STORAGE_ENABLED),y)
@@ -156,18 +165,18 @@ all:
 	done
 
 %_only:
-	$(MAKE) -C $(@:_only=)
+	+@$(MAKE) -j1 -C $(@:_only=)
 
 %_romfs:
-	$(MAKE) -C $(@:_romfs=) romfs
+	+@$(MAKE) -j1 -C $(@:_romfs=) romfs
 
 %_clean:
-	$(MAKE) -C $(@:_clean=) clean
+	$(MAKE)  $(@:_clean=) clean
 
 romfs:
 	for i in $(dir_y) ; do \
 		[ ! -d $$i ] || \
-		$(MAKE) -C $$i romfs ; \
+		$(MAKE) -j1 -C $$i romfs ; \
 	done
 
 clean:
