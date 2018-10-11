@@ -253,8 +253,9 @@ typedef struct _VOW_UI_CONFIG
 
 /* function prototype */
 typedef struct _RTMP_ADAPTER *PRTMP_ADAPTER;
-typedef struct _EDCA_PARM *PEDCA_PARM;
-
+//typedef struct _EDCA_PARM *PEDCA_PARM;
+//#define  PEDCA_PARM struct _EDCA_PARM *
+#include "mlme.h"
 /* weighted airtime fairness*/
 
 typedef struct _VOW_WATF_ENTRY {

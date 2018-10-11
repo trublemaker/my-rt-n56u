@@ -71,7 +71,7 @@ obj-$(CONFIG_MT7610_AP)		+= ralink/mt7615/mt_wifi_ap/
 obj-$(CONFIG_MT76X2_AP)		+= ralink/mt7615/mt_wifi_ap/
 obj-$(CONFIG_MT76X3_AP)		+= ralink/mt7615/mt_wifi_ap/
 obj-$(CONFIG_MT7628_AP)		+= ralink/mt7615/mt_wifi_ap/
-obj-$(MT_AP_SUPPORT)		+= ralink/mt7615/mt_wifi_ap/
+obj-$(CONFIG_MT_AP_SUPPORT)		+= ralink/mt7615/mt_wifi_ap/
 obj-$(CONFIG_RT3352_INIC_MII)	+= ralink/mt7615/mt_wifi_ap/
 
 #/home/mao/rt-n56u.tsl.org/trunk/linux-3.4.x/drivers/net/wireless/ralink/mt7615/mt_wifi_ap
