@@ -328,9 +328,10 @@ get_eeprom_params(void)
 	}
 #endif
 #if defined(FWREVSTR)
-	if (strlen(FWREVSTR) > 0 && strlen(FWREVSTR) <= 8) {
+	if (strlen(FWREVSTR) > 0 && strlen(FWREVSTR) <= 20) {
 		strcat(fwver_sub, "_");
 		strcat(fwver_sub, FWREVSTR);
+	}else{		
 	}
 #endif
 	nvram_set_temp("productid", trim_r(productid));
