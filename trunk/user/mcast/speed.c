@@ -62,7 +62,7 @@ int GetNetRate(FILE* fd, char *interface, long long *recv, long long *send) {
 
     //memset(buf, 0, sizeof (buf));
     //memset(tempstr, 0, sizeof (tempstr));
-
+    
     fseek(fd, 0, SEEK_SET);
     int nBytes = fread(buf, 1, sizeof (buf) - 1, fd);
     if (-1 == nBytes) {
@@ -73,8 +73,9 @@ int GetNetRate(FILE* fd, char *interface, long long *recv, long long *send) {
     buf[nBytes] = '\0';
     char* pDev = strstr(buf, interface);
     if (NULL == pDev) {
-        printf("don't find dev %s:%s\n", interface,buf);
+        printf("count not find dev %s\n%s\n", interface,buf);
         fclose(fd);
+        exit(0);
         return -1;
     }
     sscanf(pDev, "%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t%[^' ']\t",\
@@ -111,7 +112,8 @@ int main(int argc, char** argv) {
         printf("unkown device\n");
         exit(0);
     }
-    sprintf(netdevice, "%s", argv[1]);
+    
+    sprintf(netdevice, "%s:", argv[1]);
     FILE* fd = fopen("/proc/net/dev", "r");
     if (NULL == fd) {
         perror("open error!");
@@ -139,7 +141,7 @@ int main(int argc, char** argv) {
         sendrate = (sendcur - sendpre) / (1024 * deltatime);
         if (sendrate < 0) sendrate = 0;
 		
-        printf("%s:\tRX:%llu s:%8.2fKB/sec | TX:%llu s:%8.2fKB/sec  %g\n", 
+        printf("%s\tRX:%llu s:%8.2fKB/sec | TX:%llu s:%8.2fKB/sec  %g\n", 
                 netdevice, 
                 recvcur,recvrate, 
                 sendcur,sendrate,deltatime);
