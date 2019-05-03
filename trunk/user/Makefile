@@ -82,12 +82,16 @@ dir_y						+= busybox
 dir_y						+= iptables
 dir_y						+= mcast
 dir_y						+= gdb
+
+dir_$(CONFIG_FIRMWARE_INCLUDE_IPERF3) += iperf3
+dir_$(CONFIG_FIRMWARE_INCLUDE_IPERF)  += iperf
+
 dir_$(CONFIG_FIRMWARE_INCLUDE_IPSET)		+= ipset
 dir_y						+= ebtables
 dir_y						+= iproute2
 dir_y						+= wireless_tools
 dir_y						+= shared
-dir_$(STORAGE_ENABLED)				+= libdisk
+dir_$(STORAGE_ENABLED)		+= libdisk
 dir_y						+= nvram
 dir_y						+= mtd_write
 dir_y						+= networkmap
@@ -108,17 +112,17 @@ dir_y						+= pppd
 dir_y						+= pppoe
 dir_y						+= accel-pptpd
 dir_y						+= xl2tpd
-dir_$(CONFIG_FIRMWARE_INCLUDE_RPL2TP)		+= rp-l2tp
+dir_$(CONFIG_FIRMWARE_INCLUDE_RPL2TP) += rp-l2tp
 dir_y						+= lldt
 dir_y						+= scripts
-dir_$(OPENSSH_ENABLED)				+= openssh
-dir_$(DROPBEAR_ENABLED)				+= dropbear
+dir_$(OPENSSH_ENABLED)		+= openssh
+dir_$(DROPBEAR_ENABLED)		+= dropbear
 dir_$(CONFIG_FIRMWARE_INCLUDE_OPENVPN)		+= openvpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_SSWAN)		+= strongswan
 dir_$(CONFIG_FIRMWARE_INCLUDE_XUPNPD)		+= xupnpd
 dir_$(CONFIG_FIRMWARE_INCLUDE_TCPDUMP)		+= tcpdump
-dir_$(TTYD_ENABLED)				+= ttyd
-dir_$(SAMBA_ENABLED)				+= samba3
+dir_$(TTYD_ENABLED)			+= ttyd
+dir_$(SAMBA_ENABLED)		+= samba3
 
 ifdef CONFIG_BLK_DEV_SD
 dir_$(CONFIG_FIRMWARE_INCLUDE_HDPARM)		+= hdparm
@@ -136,18 +140,18 @@ endif
 ifeq ($(STORAGE_ENABLED),y)
 dir_y						+= nfsd
 dir_y						+= optware
-dir_$(FS_EXT_ENABLED)				+= e2fsprogs
-dir_$(FS_FAT_ENABLED)				+= dosfstools
-dir_$(FS_NTFS_ENABLED)				+= ntfs-3g
+dir_$(FS_EXT_ENABLED)		+= e2fsprogs
+dir_$(FS_FAT_ENABLED)		+= dosfstools
+dir_$(FS_NTFS_ENABLED)		+= ntfs-3g
 dir_$(CONFIG_FIRMWARE_INCLUDE_PARTED)		+= parted
-dir_$(CONFIG_FIRMWARE_INCLUDE_FTPD)		+= vsftpd
+dir_$(CONFIG_FIRMWARE_INCLUDE_FTPD)			+= vsftpd
 dir_$(CONFIG_FIRMWARE_INCLUDE_MINIDLNA)		+= minidlna
 dir_$(CONFIG_FIRMWARE_INCLUDE_FIREFLY)		+= firefly
 dir_$(CONFIG_FIRMWARE_INCLUDE_TRANSMISSION)	+= transmission
-dir_$(CONFIG_FIRMWARE_INCLUDE_ARIA)		+= aria2
+dir_$(CONFIG_FIRMWARE_INCLUDE_ARIA)			+= aria2
 endif
 
-dir_y						+= util-linux
+#dir_y						+= util-linux
 
 ifdef CONFIG_MTD_UBI
 ifneq ($(STORAGE_ENABLED),y)
